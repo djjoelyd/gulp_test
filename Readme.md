@@ -40,8 +40,7 @@ It has been built using relatively heavy libraries (Bootstrap, jQuery etc) for s
 
 Clone the repo:
 
-	$ git https://github.com/djjoelyd/gulp_test
-	$ cd gulp_test
+	$ git clone https://github.com/djjoelyd/gulp_test
 	$ git checkout master
 
 Install the dependencies
