@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     minifycss = require("gulp-minify-css");
     rename = require('gulp-rename');
     uglify = require('gulp-uglify');
+    gulpIgnore = require('gulp-ignore');
     
 //Listen to port on http://localhost:4000/
 gulp.task('express', function() {
@@ -44,11 +45,16 @@ gulp.task('styles', function() {
     .pipe(minifycss())
     .pipe(gulp.dest('styles'));
 });
-    
+
 //JS Lint to check JS files
+var bootstrap = 'js/bootstrap.js';
+var sprockets = 'js/bootstrap-sprockets.js';
+var bsmin = 'js/bootstrap.min.js';
+
 gulp.task('jshint', function() {
   return gulp.src('js/*.js')
     .pipe(jshint())
+    .pipe(gulpIgnore.include(bootstrap, sprockets, bsmin))
     .pipe(jshint.reporter('jshint-stylish'))
 });
 
@@ -56,11 +62,12 @@ gulp.task('jshint', function() {
 gulp.task('compress', function() {
   return gulp.src('js/*.js')
     .pipe(uglify())
+    .pipe(gulpIgnore.include(bootstrap, sprockets, bsmin))
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('js'));
 });
 
-//Watching of JS & CSS
+//Watching of JS, CSS & HTML
 gulp.task('watch', function() {
     gulp.watch('styles/*.scss', ['styles']);
     gulp.watch('js/*.js', ['jshint']);
