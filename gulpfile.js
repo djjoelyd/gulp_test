@@ -8,6 +8,8 @@ var gulp = require('gulp'),
     rename = require('gulp-rename');
     uglify = require('gulp-uglify');
     gulpIgnore = require('gulp-ignore');
+    imagemin = require('gulp-imagemin');
+    pngquant = require('imagemin-pngquant');
     
 //Listen to port on http://localhost:4000/
 gulp.task('express', function() {
@@ -34,6 +36,17 @@ function notifyLiveReload(event) {
     }
   });
 }
+
+//Image Minifying and Optimisation
+gulp.task('images', function () {
+    return gulp.src('src/images/*')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest('dist/images'));
+});
 
 //Create CSS file from SCSS    
 gulp.task('styles', function() {
@@ -76,4 +89,4 @@ gulp.task('watch', function() {
 });
 
 //Creates Default task of running all tasks when running 'GULP'
-gulp.task('default', ['styles', 'jshint', 'compress', 'express', 'livereload', 'watch']);
+gulp.task('default', ['styles', 'images', 'jshint', 'compress', 'express', 'livereload', 'watch']);
