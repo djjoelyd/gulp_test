@@ -50,22 +50,22 @@ gulp.task('images', function () {
 
 //Create CSS file from SCSS    
 gulp.task('styles', function() {
-  return gulp.src('styles/*.scss')
+  return gulp.src('src/styles/*.scss')
     .pipe(sass({ style: 'expanded' }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
-    .pipe(gulp.dest('styles'))
+    .pipe(gulp.dest('dist/styles'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
-    .pipe(gulp.dest('styles'));
+    .pipe(gulp.dest('dist/styles'));
 });
 
 //JS Lint to check JS files
-var bootstrap = 'js/bootstrap.js';
-var sprockets = 'js/bootstrap-sprockets.js';
-var bsmin = 'js/bootstrap.min.js';
+var bootstrap = 'src/js/bootstrap.js';
+var sprockets = 'src/js/bootstrap-sprockets.js';
+var bsmin = 'src/js/bootstrap.min.js';
 
 gulp.task('jshint', function() {
-  return gulp.src('js/*.js')
+  return gulp.src('src/js/*.js')
     .pipe(jshint())
     .pipe(gulpIgnore.include(bootstrap, sprockets, bsmin))
     .pipe(jshint.reporter('jshint-stylish'))
@@ -73,20 +73,29 @@ gulp.task('jshint', function() {
 
 //Minify JS
 gulp.task('compress', function() {
-  return gulp.src('js/*.js')
+  return gulp.src('src/js/*.js')
     .pipe(uglify())
-    .pipe(gulpIgnore.include(bootstrap, sprockets, bsmin))
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('js'));
+    .pipe(gulp.dest('dist/js'));
+});
+
+//Copying Files
+gulp.task('copy', function() {
+   gulp.src('src/fonts/*.{eot,ttf,woff,woff2,eof,svg}')
+   .pipe(gulp.dest('dist/fonts'))
+   gulp.src('src/js/bootstrap/*.js')
+   .pipe(gulp.dest('dist/js/bootstrap'))
+   gulp.src('src/*.html')
+  .pipe(gulp.dest('dist'));
 });
 
 //Watching of JS, CSS & HTML
 gulp.task('watch', function() {
-    gulp.watch('styles/*.scss', ['styles']);
-    gulp.watch('js/*.js', ['jshint']);
-    gulp.watch('*.html', notifyLiveReload);
-    gulp.watch('styles/*.css', notifyLiveReload);
+    gulp.watch('src/styles/*.scss', ['styles']);
+    gulp.watch('src/js/*.js', ['jshint']);
+    gulp.watch('src/*.html', notifyLiveReload);
+    gulp.watch('dist/styles/*.css', notifyLiveReload);
 });
 
 //Creates Default task of running all tasks when running 'GULP'
-gulp.task('default', ['styles', 'images', 'jshint', 'compress', 'express', 'livereload', 'watch']);
+gulp.task('default', ['styles', 'images', 'jshint', 'compress', 'copy', 'express', 'livereload', 'watch']);
