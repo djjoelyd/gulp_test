@@ -1,3 +1,3 @@
 $(function(){
-  console.log("joel");
+  console.log("test");
 });

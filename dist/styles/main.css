@@ -1,4 +1,3 @@
-@charset "UTF-8";
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
   display: block; }
 
@@ -4241,7 +4240,7 @@ tbody.collapse.in {
   .breadcrumb > li {
     display: inline-block; }
     .breadcrumb > li + li:before {
-      content: "/ ";
+      content: "/\\00a0";
       padding: 0 5px;
       color: #ccc; }
   .breadcrumb > .active {
@@ -5957,7 +5956,9 @@ html {
   height: 100%;
   padding-top: 150px;
   text-align: center;
-  background: #fff; }
+  background: url("../images/bg.jpg") no-repeat;
+  background-size: cover;
+  color: #fff; }
 
 .about-section {
   height: 100%;

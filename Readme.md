@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a test site setup using Gulp.
+This is a test site setup using Gulp. Built by [Joel Delane](http://joeldelane.com).
 
 https://github.com/djjoelyd/gulp_test
 
@@ -25,16 +25,26 @@ It has been built using relatively heavy libraries (Bootstrap, jQuery etc) for s
 * [Uglify](https://www.npmjs.com/package/gulp-uglify)
 * [Ignore](https://github.com/robrich/gulp-ignore)
 * [Express](https://www.npmjs.com/package/gulp-express)
+* [Live Reload](https://github.com/vohof/gulp-livereload)
+* [Tiny Reload Server](https://www.npmjs.com/package/tiny-lr)
+* [Embed Live Reload](https://www.npmjs.com/package/gulp-embedlr)
+* [Ecstatic](https://github.com/jfhbrook/node-ecstatic)
 
 ## Structure
 
 ### Files
 
-	fonts/
-	images/
-	js/
+	dist/	
+		fonts/
+		images/
+		js/
+		styles/
 	node_modules/
-	styles/
+	src/	
+		fonts/
+		images/
+		js/
+		styles/
 
 ## Installation, Build and Deployment
 
